@@ -20,7 +20,7 @@ jobs:
         run: |
           for file in repos_to_create/*.json; do
             repo_name=$(jq -r '.repository' "$file")
-
+            echo "$repo_name"            
             # Verifica si el repositorio ya existe
             repo_check=$(curl -s -o /dev/null -w "%{http_code}" https://api.github.com/repos/usuario/"$repo_name")
 
