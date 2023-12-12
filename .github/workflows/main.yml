@@ -21,6 +21,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+        
           for file in repos_to_create/*.json; do
             repo_name=$(jq -r '.repository' "$file")
             iac_type=$(jq -r '.IaC' "$file")  # Obtén el valor de "IaC" del archivo JSON
