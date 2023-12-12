@@ -24,8 +24,14 @@ jobs:
             repo_name=$(jq -r '.repository' "$file")
             echo $repo_name            
             # Verifica si el repositorio ya existe
-            repo_check=$(curl -s -o /dev/null -w "%{http_code}" https://api.github.com/repos/felipe0410/"$repo_name")
 
+            repo_check =$(curl -L \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer <YOUR-TOKEN>" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/go-pos/$repo_name)
+
+              echo $repo_check 
             if [ "$repo_check" == "200" ]; then
               echo "El repositorio $repo_name ya existe. No se realizará ninguna acción."
             else
@@ -36,22 +42,23 @@ jobs:
               -H "X-GitHub-Api-Version: 2022-11-28" \
               https://api.github.com/orgs/go-pos/repos \
               -d '{"name":"'"$repo_name"'","description":"This is your first repository","homepage":"https://github.com","private":true,"has_issues":true,"has_projects":true,"has_wiki":true}'
-              # ___________________________-
-
-
-              # Crea el repositorio
-              # ...
-              # Clona el repositorio recién creado
-              # git clone https://github.com/usuario/"$repo_name".git
-
-              # # Copia la estructura base al repositorio local
-              # cp -R ruta-a-la-estructura-base/* "$repo_name"/
-
-              # # Agrega los cambios y realiza el commit
-              # cd "$repo_name"
-              # git add .
-              # git commit -m "Añadir estructura base"
-              # git push origin main
+              
+              git clone https://github.com/go-pos/"$repo_name".git
+              cd "$repo_name"
+  
+              # Agrega el archivo correspondiente dependiendo del tipo de IaC
+              if [ "$iac_type" == "CDK" ]; then
+                cp ../templates/cdk.yml .
+              elif [ "$iac_type" == "terraform" ]; then
+                cp ../templates/terraform.yml .
+              else
+                echo "Tipo de IaC no reconocido: $iac_type. No se agrega ningún archivo."
+              fi
+  
+              # Agrega los cambios y realiza el commit
+              git add .
+              git commit -m "Añadir archivo correspondiente según el tipo de IaC"
+              git push origin main
 
               echo "Repositorio $repo_name creado con éxito y estructura base añadida."
             fi
