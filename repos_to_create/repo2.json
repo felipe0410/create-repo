@@ -1,0 +1,17 @@
+{
+    "repository": "opa-templates",
+    "language": "typescript",
+    "IaC": "CDK",
+    "NumberOfApprovals": 1,
+    "ApplicationCI": 12345678,
+    "SAPCC": "A345678",
+    "Owner": "Testjk",
+    "AWSAccounts": [
+      {
+        "AccounNumber": 123
+      },
+      {
+        "AccounNumber": 564
+      }
+    ]
+  }
