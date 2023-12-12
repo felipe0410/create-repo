@@ -17,30 +17,32 @@ jobs:
         run: ls repos_to_create/*.json
 
       - name: Process Files and Create Repos
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           for file in repos_to_create/*.json; do
             repo_name=$(jq -r '.repository' "$file")
-            echo "$repo_name"            
+            echo $repo_name            
             # Verifica si el repositorio ya existe
             repo_check=$(curl -s -o /dev/null -w "%{http_code}" https://api.github.com/repos/felipe0410/"$repo_name")
 
             if [ "$repo_check" == "200" ]; then
               echo "El repositorio $repo_name ya existe. No se realizará ninguna acción."
             else
+              curl -u "username:$GH_TOKEN" https://api.github.com/felipe0410/repos -d "{\"name\":\"$repo_name\"}"
               # Crea el repositorio
               # ...
-
               # Clona el repositorio recién creado
-              git clone https://github.com/usuario/"$repo_name".git
+              # git clone https://github.com/usuario/"$repo_name".git
 
-              # Copia la estructura base al repositorio local
-              cp -R ruta-a-la-estructura-base/* "$repo_name"/
+              # # Copia la estructura base al repositorio local
+              # cp -R ruta-a-la-estructura-base/* "$repo_name"/
 
-              # Agrega los cambios y realiza el commit
-              cd "$repo_name"
-              git add .
-              git commit -m "Añadir estructura base"
-              git push origin main
+              # # Agrega los cambios y realiza el commit
+              # cd "$repo_name"
+              # git add .
+              # git commit -m "Añadir estructura base"
+              # git push origin main
 
               echo "Repositorio $repo_name creado con éxito y estructura base añadida."
             fi
