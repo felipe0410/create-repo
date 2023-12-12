@@ -1,0 +1,23 @@
+{
+    "repository": "aws-deployment",
+    "IaC": "terraform",
+    "NumberOfApprovalsPR": 1,
+    "ApplicationCI": 12345678,
+    "SAPCC": "A345678",
+    "Owner": "Testjk",
+    "AWSAccounts": [
+        {
+            "environmentName": "DEV",
+            "AccounNumber": 123
+        },
+        {
+            "AccounNumber": 564,
+            "environmentName": "QA",
+            "Approvers": [
+                {
+                    "email": "test@test.com"
+                }
+            ]
+        }
+    ]
+}
