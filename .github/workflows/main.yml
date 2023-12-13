@@ -19,7 +19,7 @@ jobs:
       - name: Process Files and Create Repos
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
         
           for file in repos_to_create/*.json; do
