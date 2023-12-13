@@ -46,11 +46,10 @@ jobs:
             fi
             # Clona el repositorio recién creado
             unset GH_TOKEN
-            echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
+            echo ${{ secrets.GITHUB_TOKEN }}
             gh repo clone go-pos/"$repo_name"
             cd "$repo_name"
 
-            # Agrega el archivo correspondiente dependiendo del tipo de IaC
             if [ "$iac_type" == "CDK" ]; then
               cp ../templates/cdk.yml .
             elif [ "$iac_type" == "terraform" ]; then
@@ -59,7 +58,6 @@ jobs:
               echo "Tipo de IaC no reconocido: $iac_type. No se agrega ningún archivo."
             fi
 
-            # Agrega los cambios y realiza el commit
             git add .
             git commit -m "Añadir archivo correspondiente según el tipo de IaC"
             git push origin main
