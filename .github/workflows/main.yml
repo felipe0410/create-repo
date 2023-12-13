@@ -45,10 +45,10 @@ jobs:
               echo "Repositorio $repo_name creado con éxito y estructura base añadida."
             fi
             
-
-            git clone https://oauth2:${{ secrets.GITHUB_TOKEN }}@github.com/go-pos/"$repo_name".git
+            echo 
+            git clone https://oauth2:${{ secrets.GH_TOKEN }}@github.com/go-pos/"$repo_name".git
             cd "$repo_name"
-
+            git clone https://oauth2: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@github.com/go-pos/aws-deployment.git
             if [ "$iac_type" == "CDK" ]; then
               cp ../templates/cdk.yml .
             elif [ "$iac_type" == "terraform" ]; then
