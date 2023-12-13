@@ -19,7 +19,7 @@ jobs:
       - name: Process Files and Create Repos
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
         
           for file in repos_to_create/*.json; do
@@ -45,7 +45,7 @@ jobs:
               echo "Repositorio $repo_name creado con éxito y estructura base añadida."
             fi
             # Clona el repositorio recién creado
-            echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token            
+            echo ${{ secrets.GH_TOKEN }} | gh auth login --with-token            
             gh repo clone go-pos/"$repo_name"
             cd "$repo_name"
 
