@@ -44,8 +44,9 @@ jobs:
                 -d '{"name":"'"$repo_name"'","description":"This is your first repository","homepage":"https://github.com","private":true,"has_issues":true,"has_projects":true,"has_wiki":true}'
               echo "Repositorio $repo_name creado con éxito y estructura base añadida."
             fi
+            
 
-            git clone https://${{ secrets.GITHUB_TOKEN }}@github.com/go-pos/"$repo_name".git
+            git clone https://oauth2:${{ secrets.GITHUB_TOKEN }}@github.com/go-pos/"$repo_name".git
             cd "$repo_name"
 
             if [ "$iac_type" == "CDK" ]; then
