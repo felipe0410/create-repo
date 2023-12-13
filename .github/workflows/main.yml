@@ -46,7 +46,7 @@ jobs:
             fi
             # Clona el repositorio recién creado
             unset GH_TOKEN
-            echo ${{ secrets.GITHUB_TOKEN }}            
+            echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
             gh repo clone go-pos/"$repo_name"
             cd "$repo_name"
 
