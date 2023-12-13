@@ -45,7 +45,7 @@ jobs:
               echo "Repositorio $repo_name creado con éxito y estructura base añadida."
             fi
             # Clona el repositorio recién creado
-            gh auth login --with-token < $GH_TOKEN
+            gh auth login --with-token $GH_TOKEN
             gh repo clone go-pos/"$repo_name"
             cd "$repo_name"
 
