@@ -44,10 +44,8 @@ jobs:
                 -d '{"name":"'"$repo_name"'","description":"This is your first repository","homepage":"https://github.com","private":true,"has_issues":true,"has_projects":true,"has_wiki":true}'
               echo "Repositorio $repo_name creado con éxito y estructura base añadida."
             fi
-            # Clona el repositorio recién creado
-            unset GH_TOKEN
-            gh auth login --with-token
-            gh repo clone go-pos/"$repo_name"
+
+            git clone https://${{ secrets.GITHUB_TOKEN }}@github.com/go-pos/"$repo_name".git
             cd "$repo_name"
 
             if [ "$iac_type" == "CDK" ]; then
