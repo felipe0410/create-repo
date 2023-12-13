@@ -46,7 +46,7 @@ jobs:
             fi
             
             echo 
-            git clone https://oauth2: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@github.com/go-pos/"$repo_name".git
+            git clone https://oauth2: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@github.com/go-pos/aws-deployment.git
             cd "$repo_name"
             # git clone https://oauth2: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@github.com/go-pos/aws-deployment.git
             if [ "$iac_type" == "CDK" ]; then
